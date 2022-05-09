@@ -6,11 +6,11 @@ const userRoute = Router();
 userRoute.get("/:id",(req : Request , res : Response)=>{
     UserControll.SearchUser(req,res);
 })
-userRoute.get('/',(req : Request , res : Response)=>{
+userRoute.post('/',(req : Request , res : Response)=>{
     UserControll.LogUser(req,res)
 })
 userRoute.post('/createuser',(req:Request,res:Response)=>{
-    UserControll.createuser(req,res);
+    UserControll.createUser(req,res);
 })
 userRoute.put("/newuser",uploadImage.single("image"),(req : Request , res:Response)=>{
     UserControll.updateUser(req,res);

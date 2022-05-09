@@ -6,9 +6,16 @@ import UserHandleError from "../service/user.service";
 const UserControll : any  = {
     LogUser :async (req:Request , res : Response) => {
         try {
-            await User.find()
+            const user = await Users.findOne(
+                {
+                    $and:[{email:req.body?.email} , {password:req.body?.password}]
+                }
+            );
+            res.status(200).json(user);
         } catch (error) {
-            
+            res.json({
+                message :"error"
+            })
         }
     },
     SearchUser  : async (req : Request , res : Response ) =>{
@@ -50,7 +57,14 @@ const UserControll : any  = {
         })
     },
     createUser : async (req : Request ,res : Response ) =>{
-        res.json(req.body)
+        const errorhandler = new UserHandleError();
+        const data = req.body;
+        try {
+            const newUser = await Users.create({...data});
+            res.status(200).send("save successfully");
+        } catch (error) {
+            errorhandler.handleError(error,req,res);
+        }
     },
     GetImage : async ( req : Request , res : Response ) => {
         try {
