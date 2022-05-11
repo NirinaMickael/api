@@ -19,11 +19,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/upload`));
 app.use(cors({origin:"*"}))
 // allow to wonvert data between server and database
-app.all('/',(req:Request , res : Response)=>{
-	res.json({
-		message : "salut"
-	})
-})
 app.use('/public',express.static('public'))
 app.use("/api",userRoute);
 app.use("/message",msgRoute)

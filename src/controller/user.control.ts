@@ -21,9 +21,9 @@ const UserControll : any  = {
     SearchUser  : async (req : Request , res : Response ) =>{
         try{
             const text = "^"+req.params.id;
-            await User.find({"name" : {$regex: text , "$options": "i"} } ).then((data)=>{
+            await Users.find({"username" : {$regex: text , "$options": "i"} } ).then((data)=>{
                 res.status(201).json({
-                    user : data
+                    data
                 })
             })
         } catch(error) {
