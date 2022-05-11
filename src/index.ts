@@ -3,6 +3,8 @@ import "dotenv/config"
 import { connect } from "./db/connect";
 import cors from "cors"
 import userRoute from "./routes/user.route";
+import ConvRoute from "./routes/conversation.route";
+import msgRoute from "./routes/message.route";
 const app: Application = express();  
 
 // variable database
@@ -24,7 +26,8 @@ app.all('/',(req:Request , res : Response)=>{
 })
 app.use('/public',express.static('public'))
 app.use("/api",userRoute);
-
+app.use("/message",msgRoute)
+app.use("/conversation",ConvRoute)
 try {
 	app.listen(port, (): void => {
 		console	.log(`Connected successfully on port ${port}`);
