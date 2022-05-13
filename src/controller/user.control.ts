@@ -1,78 +1,99 @@
-import {User,Users} from "../model/user.model";
-import {Request , Response } from "express"
-import multiparty from "multiparty"
-import uploadImage from "../middlware/uploadImage"
+import { User, Users } from "../model/user.model";
+import { Request, Response } from "express";
+import multiparty from "multiparty";
+import uploadImage from "../middlware/uploadImage";
 import UserHandleError from "../service/user.service";
-const UserControll : any  = {
-    LogUser :async (req:Request , res : Response) => {
-        try {
-            const user = await Users.findOne(
-                {
-                    $and:[{email:req.body?.email} , {password:req.body?.password}]
-                }
-            );
-            res.status(200).json(user);
-        } catch (error) {
-            res.json({
-                message :"error"
-            })
-        }
-    },
-    SearchUser  : async (req : Request , res : Response ) =>{
-        try{
-            const text = "^"+req.params.id;
-            await Users.find({"username" : {$regex: text , "$options": "i"} } ).then((data)=>{
-                res.status(201).json({
-                    data
-                })
-            })
-        } catch(error) {
-            res.status(500).json({
-                error
-            })
-        }
-    },
-    updtadeUser : async ( req : Request , res : Response ) => {
-        const errorhandler = new UserHandleError();
-        const form = new multiparty.Form();
-        form.parse(req,async(err,fields,files)=>{
-            try {
-                uploadImage.single("image");
-                const data = {...fields};
-                console.log(data,files)
-                for(var key in data){
-                    if(data.hasOwnProperty(key)){
-                        data[key]=data[key].join('');
-                    }
-                    console.log(data[key])
-                }
-                const userData = {...data,image : req.file?.filename};
-                const newUser  = await User.create({...userData});
-                res.status(200).json(
-                    newUser
-                )
-            } catch (error) {
-                    errorhandler.handleError(error,req,res);
-            }
-        })
-    },
-    createUser : async (req : Request ,res : Response ) =>{
-        const errorhandler = new UserHandleError();
-        const data = req.body;
-        try {
-            const newUser = await Users.create({...data});
-            res.status(200).send("save successfully");
-        } catch (error) {
-            errorhandler.handleError(error,req,res);
-        }
-    },
-    GetImage : async ( req : Request , res : Response ) => {
-        try {
-            res.download(`upload/${req.params.id}`)
-        } catch (error) {
-            res.send(error)
-        }
+const UserControll: any = {
+  getUser: async (req: Request, res: Response) => {
+    try {
+      const user = await Users.findOne({
+        _id: req.params.id,
+      });
+      res.status(200).json(user);
+    } catch (error) {
+      res.json({
+        message: "error",
+      });
     }
-}
+  },
+  LogUser: async (req: Request, res: Response) => {
+    try {
+      const user = await Users.findOne({
+        $and: [{ email: req.body?.email }, { password: req.body?.password }],
+      });
+      console.log(user)
+      res.status(200).json(user);
+    } catch (error) {
+      res.json({
+        message: "error",
+      });
+    }
+  },
+  SearchUser: async (req: Request, res: Response) => {
+    try {
+      const text = "^" + req.params.id;
+      await Users.find({ username: { $regex: text, $options: "i" } }).then(
+        (data) => {
+          res.status(201).json({
+            data,
+          });
+        }
+      );
+    } catch (error) {
+      res.status(500).json({
+        error,
+      });
+    }
+  },
+  updateUser: async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+    console.log(id)
+      Users.findByIdAndUpdate(
+        id, 
+         {  image :req.file?.filename },
+       function (error: any, success: any) {
+             if (error) {
+               res.send(error);
+             } else {
+                 res.json({
+                     success,
+                     res:true
+                 })
+             }
+         });
+    } catch (error) {
+      res.send("error");
+    }
+  },
+//   `${req.protocol}://${req.get("host")}/${req.file?.filename}`
+  createUser: async (req: Request, res: Response) => {
+    const errorhandler = new UserHandleError();
+    const data = req.body;
+    try {
+      const newUser = await Users.create({ ...data });
+      res.status(200).send("save successfully");
+    } catch (error) {
+      errorhandler.handleError(error, req, res);
+    }
+  },
+  GetImage: async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const user = await Users.findById(id);
+        if(user) {
+            res.download(`upload/${user?.image}`,err=>{
+              res.status(404).send(false)
+            })
+        }else{
+            res.json({
+                success : false
+            })
+        }
+    } catch (error) {
+      res.send(error);
+    }
+  },
+};
 
 export default UserControll;

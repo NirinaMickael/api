@@ -1,3 +1,4 @@
+import { faSortNumericDownAlt } from "@fortawesome/free-solid-svg-icons";
 import multer  from "multer"
 import path from "path";
 
@@ -6,7 +7,8 @@ const storage = multer.diskStorage({
         cb(null,"./upload");
     },
     filename : (req,file,cb) => {
-        cb(null,file.originalname);
+        const newName = file.originalname.replace(/ /g,'').toLowerCase();
+        cb(null,newName);
     }   
 })
 export default  multer({storage:storage});
