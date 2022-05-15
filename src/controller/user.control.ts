@@ -21,8 +21,8 @@ const UserControll: any = {
       const user = await Users.findOne({
         $and: [{ email: req.body?.email }, { password: req.body?.password }],
       });
-      console.log(user)
-      res.status(200).json(user);
+      if(user)  return res.status(200).json(user);
+      return res.status(404).send('user not found');
     } catch (error) {
       res.json({
         message: "error",
