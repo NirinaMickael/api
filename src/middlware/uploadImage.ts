@@ -1,4 +1,3 @@
-import { faSortNumericDownAlt } from "@fortawesome/free-solid-svg-icons";
 import multer  from "multer"
 import path from "path";
 
