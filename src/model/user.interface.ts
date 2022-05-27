@@ -19,6 +19,7 @@ export interface UsersDocument extends mongoose.Document {
     email : String;
     password : String ;
     image : String;
+    status : boolean;
     createdAt : Date;
     updateAt : Date;
 }
