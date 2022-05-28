@@ -20,7 +20,10 @@ const UserControll: any = {
     try {
       const user = await Users.findOne({
         $and: [{ email: req.body?.email }, { password: req.body?.password }],
+        email : req.body?.email
       });
+      // const user = await Users.findById("6290bed2dc88645651cf0b14");
+      console.log(user,{...req.body})
       if(user)  return res.status(200).json(user);
       return res.status(404).send('user not found');
     } catch (error) {
@@ -74,7 +77,7 @@ const UserControll: any = {
       const newUser = await Users.create({ ...data });
       res.status(200).send("save successfully");
     } catch (error) {
-      errorhandler.handleError(error, req, res);
+      errorhandler.handleError(error, req, res); 
     }
   },
   GetImage: async (req: Request, res: Response) => {
