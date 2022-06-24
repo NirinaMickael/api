@@ -5,6 +5,9 @@ const userRoute = Router();
 userRoute.post("/user/:id",(req:Request,res:Response)=>{
     UserControll.getUser(req,res);
 })
+userRoute.get("/alluser",(req : Request , res : Response)=>{
+    UserControll.getAllUsers(req , res);
+})
 userRoute.get("/:id",(req : Request , res : Response)=>{
     UserControll.SearchUser(req,res);
 })

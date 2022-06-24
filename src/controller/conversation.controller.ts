@@ -9,19 +9,25 @@ export const NewConversation =async (req:Request,res:Response) => {
         }).then(response=>{
             if(response.length){
                 res.json(
-                    ...response
+                   {
+                    success : true ,
+                    data : response
+                   }
                 )
             }else{
                 conversationModels.create({
                     members : [req.params.senderId,req.params.receiveId]
-                },(err,data)=>{
+                },(err,conv)=>{
                     if(err){
                         res.json({
                             success : false,
-                            err
+                            data : err
                         })
                     }else{
-                        res.json(data)
+                        res.json({
+                            success : true,
+                            data : conv
+                        })
                     }
                 })
             }
@@ -40,14 +46,32 @@ export const NewConversation =async (req:Request,res:Response) => {
 export const GetAllconversation = async (req : Request,res:Response) =>{
     conversationModels.find({
         members : {$in :[req.params.userId]}
-    }).then(data=>{
+    }).then(conv=>{
         res.status(200).json({
-            success : true, 
-            response :data
+            success: true,
+            data : conv
         })
     }).catch(err=>{
         res.status(500).json({
-            err
+            success : false ,
+            data : err
         })
     })
+}
+
+export const GetConversation = async (req : Request , res: Response) => {
+    try {
+        conversationModels.findOne({
+            members : {
+                $all : [req.params.userId , req.params.otherId] 
+            }
+        }).then( response => {
+            res.json({
+                success: true,
+                data : response
+            })
+        })
+    } catch (error) {
+        res.json(error);
+    }
 }
