@@ -1,6 +1,5 @@
 import { UserDocument, UsersDocument } from "./user.interface";
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";
 // create hashing passwords
 const UserSchema = new mongoose.Schema(
   {

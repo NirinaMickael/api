@@ -35,7 +35,6 @@ app.use("/conversation",ConvRoute)
 try {
 	httpServer.listen(port, (): void => {
 		console	.log(`Connected successfully on port ${port}`);
-		console.log(dbName)
 		connect(dbName,portDb,hostDb)
 		// data connection
 	});
