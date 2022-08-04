@@ -16,7 +16,7 @@ const io = new Server(httpServer,{
 	}}
 );
 // variable database
-const port = process.env.port as unknown as number;
+const port = process.env.PORT as unknown as number;
 const portDb = process.env.portDb as unknown as number;
 const hostDb = process.env.host as string;
 const dbName = process.env.dbName as string;
