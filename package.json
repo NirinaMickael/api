@@ -4,7 +4,7 @@
   "description": "Starting template for Node Express API with Typescript",
   "main": "index.ts",
   "scripts": {
-    "start": "tsc && node build/index.js",
+    "start": "node build/index.js",
     "postinstall": "tsc"
   },
   "keywords": [
