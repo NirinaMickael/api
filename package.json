@@ -4,9 +4,9 @@
   "description": "Starting template for Node Express API with Typescript",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node-dev ./src/index.ts",
-    "deploy":"vercel deploy"
-  },
+    "start": "node build/index.js",
+    "postinstall": "tsc"
+  }, 
   "keywords": [
     "express"
   ],
