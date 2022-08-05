@@ -7,7 +7,7 @@
     "start": "node /build/index.js",
     "postinstall": "tsc",
     "build": "tsc --build",
-    "deploy": "node /build/index.js"
+    "deploy": "node ./build/index.js"
   },
   "keywords": [
     "express"
