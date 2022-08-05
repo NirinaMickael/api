@@ -26,6 +26,7 @@ const UserControll: any = {
   getAllUsers: async (req: Request, res: Response) => {
     const users = await Users.find();
     // Ho ombarina
+    console.log("kuku")
     res.json(users);
   },
   LogUser: async (req: Request, res: Response) => {

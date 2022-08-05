@@ -42,30 +42,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.connect = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
 var connect = function (dbName, dbPort, dbHost) { return __awaiter(void 0, void 0, void 0, function () {
-    var dbUrl, db, error_1;
+    var dbUrl, db;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                dbUrl = "mongodb+srv://mickael:azertyui@newcluster.aqemw.mongodb.net/User?retryWrites=true&w=majority";
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, mongoose_1.default.connect(dbUrl)];
-            case 2:
-                _a.sent();
-                db = mongoose_1.default.connection;
-                db.on("error", console.error.bind(console, "connection error: "));
-                db.once("open", function () {
-                    console.log("Connected successfully");
-                });
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _a.sent();
-                console.log("error in database", error_1);
-                process.exit(-1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+        dbUrl = "mongodb+srv://Mickael:AmHwEQ2yxKNVvJM@newcluster.aqemw.mongodb.net/User?retryWrites=true&w=majority";
+        try {
+            mongoose_1.default.connect(dbUrl);
         }
+        catch (error) {
+            console.log("error in database", error);
+            process.exit(-1);
+        }
+        db = mongoose_1.default.connection;
+        db.on("error", console.error.bind(console, "connection error: "));
+        db.once("open", function () {
+            console.log("Connected successfully");
+        });
+        return [2 /*return*/];
     });
 }); };
 exports.connect = connect;

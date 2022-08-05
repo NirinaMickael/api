@@ -8,7 +8,6 @@ const conversationSchema =  new mongoose.Schema (
                 type:String,
                 unique:false
             }
-
         ]
     },
     {

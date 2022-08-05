@@ -5,18 +5,18 @@ export const connect = async (
   dbPort: number,
   dbHost: string
 ): Promise<void> => {
-  //   const dbUrl = `mongodb://${dbHost}:${dbPort}/${dbName}` as string;
+    // const dbUrl = `mongodb://${dbHost}:${dbPort}/${dbName}` as string;
   const dbUrl =
-    "mongodb+srv://mickael:azertyui@newcluster.aqemw.mongodb.net/User?retryWrites=true&w=majority";
+  "mongodb+srv://Mickael:AmHwEQ2yxKNVvJM@newcluster.aqemw.mongodb.net/User?retryWrites=true&w=majority";
   try {
-    await mongoose.connect(dbUrl);
-    const db = mongoose.connection;
-    db.on("error", console.error.bind(console, "connection error: "));
-    db.once("open", function () {
-      console.log("Connected successfully");
-    });
+    mongoose.connect(dbUrl);
   } catch (error) {
     console.log("error in database", error);
     process.exit(-1);
   }
+  const db = mongoose.connection;
+  db.on("error", console.error.bind(console, "connection error: "));
+  db.once("open", function () {
+    console.log("Connected successfully");
+  });
 };

@@ -93,6 +93,7 @@ var UserControll = {
                 case 1:
                     users = _a.sent();
                     // Ho ombarina
+                    console.log("kuku");
                     res.json(users);
                     return [2 /*return*/];
             }
