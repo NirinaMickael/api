@@ -5,7 +5,6 @@ export const connect = async (
   dbPort: number,
   dbHost: string
 ): Promise<void> => {
-    // const dbUrl = `mongodb://${dbHost}:${dbPort}/${dbName}` as string;
   const dbUrl =
   "mongodb+srv://Mickael:AmHwEQ2yxKNVvJM@newcluster.aqemw.mongodb.net/User?retryWrites=true&w=majority";
   try {
