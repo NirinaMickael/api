@@ -7,7 +7,7 @@
     "start": "ts-node-dev ./src/index.ts",
     "postinstall": "tsc",
     "build": "tsc --build",
-    "deploy":"node build/index.js"
+    "deploy":"node /build/index.js"
   },
   "keywords": [
     "express"
